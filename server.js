@@ -14,10 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // imports html routing calls
-var htmlRoutes = require('./app/routing/htmlRoutes')(app);
+require('./app/routing/htmlRoutes')(app);
 
 // import api get routes
-var apiRoutes = require('./app/routing/apiRoutes')(app);
+require('./app/routing/apiRoutes')(app);
 
 // tell server to start listening for a requests & console PORT #
 app.listen(PORT, function() {
