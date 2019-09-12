@@ -22,5 +22,5 @@ var apiRoutes = require('./app/routing/apiRoutes')(app);
 // tell server to start listening for a requests & console PORT #
 app.listen(PORT, function() {
 
-    console.log("App connected to localhost:" + PORT);
+    console.log("App connected to http://localhost:" + PORT);
 });
