@@ -13,11 +13,13 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// import api get routes
+require('./app/routing/apiRoutes')(app);
+
 // imports html routing calls
 require('./app/routing/htmlRoutes')(app);
 
-// import api get routes
-require('./app/routing/apiRoutes')(app);
+
 
 // tell server to start listening for a requests & console PORT #
 app.listen(PORT, function() {

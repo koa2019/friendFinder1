@@ -1,3 +1,8 @@
 server.js how would you read the (app)?
 // imports html routing calls
 var htmlRoutes = require('./app/routing/htmlRoutes')(app);
+
+why do you have to impor api before html?
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
+ 
