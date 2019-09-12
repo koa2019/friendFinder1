@@ -1,0 +1,3 @@
+server.js how would you read the (app)?
+// imports html routing calls
+var htmlRoutes = require('./app/routing/htmlRoutes')(app);
