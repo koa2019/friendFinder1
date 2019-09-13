@@ -19,6 +19,7 @@
   "homepage": "https://github.com/koa2019/friendFinder1#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^1.19.2",
     "path": "^0.12.7"
   }
 }

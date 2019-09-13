@@ -39,29 +39,18 @@
                     <div class="card-body">
                         <form role="form">
                             <div class="form-group">
-                                <label for="survey-name">Name (Required)</label>
-                                <input type="text" class="form-control" id="survey-name" required>
+                                <label for="surveyName">Name (Required)</label>
+                                <input type="text" class="form-control" id="surveyName" required>
                             </div>
                             <div class="form-group">
-                                <label for="survey-photo">Link to Photo Image (Required)</label>
-                                <input type="text" class="form-control" id="survey-photo" required>
+                                <label for="surveyPhoto">Link to Photo Image (Required)</label>
+                                <input type="text" class="form-control" id="surveyPhoto" required>
                             </div>
-                            <!-- <div class="form-inline">
-                                <label for="q1"></label>
+
+                            <div>
+                                <label class="my-1 mr-2" for="q1">Question 1</label>
                                 <h5><strong>Would you consider yourself a morning person?</strong></h5>
-                                <select class="custom-select" id="q1" style="display: none;">
-                                    <option selected>Choose...</option>
-                                    <option value="1">1 (Strongly Disagree)</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5 (Strongly Agree)</option>
-                                </select> -->
-                            <form class="form">
-                                <div>
-                                    <label class="my-1 mr-2" for="q1">Question 1</label>
-                                    <h5><strong>Would you consider yourself a morning person?</strong></h5>
-                                    <select class="custom-select" id="q1">
+                                <select class="custom-select" id="q1">
                                     <option selected>Choose...</option>
                                     <option value="1">1 (Strongly Disagree)</option>
                                     <option value="2">2</option>
@@ -69,11 +58,11 @@
                                     <option value="4">4</option>
                                     <option value="5">5 (Strongly Agree)</option>
                                 </select>
-                                </div>
-                                <div class="mt-4 mr-2">
-                                    <label for="q2">Question 2</label>
-                                    <h5><strong>You prefer the beach over the mountains</strong></h5>
-                                    <select class="custom-select" id="q2">
+                            </div>
+                            <div class="mt-4 mr-2">
+                                <label for="q2">Question 2</label>
+                                <h5><strong>You prefer the beach over the mountains</strong></h5>
+                                <select class="custom-select" id="q2">
                                     <option selected>Choose...</option>
                                     <option value="1">1 (Strongly Disagree)</option>
                                     <option value="2">2</option>
@@ -81,10 +70,10 @@
                                     <option value="4">4</option>
                                     <option value="5">5 (Strongly Agree)</option>
                                 </select>
-                                </div>
-                                <br><br>
-                                <button type="submit" class="btn btn-primary submit">Submit</button>
-                            </form>
+                            </div>
+                            <br><br>
+                            <button type="submit" class="btn btn-primary submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -94,7 +83,7 @@
         <footer class="footer">
             <div class="container">
                 <p>
-                    <a href="/api/tables">API Friends Link</a> |
+                    <a href="/api/friends">API Friends Link</a> |
                     <a href="https://github.com/koa2019/friendFinder1">Github Repo</a>
             </div>
         </footer>
@@ -102,26 +91,28 @@
     </div>
 
     <script type="text/javascript">
-        // Chosen CSS
-        var config = {
-            ".chosen-select": {},
-            ".chosen-select-deselect": {
-                allow_single_deselect: true
-            },
-            ".chosen-select-no-single": {
-                disable_search_threshold: 10
-            },
-            ".chosen-select-no-results": {
-                no_results_text: "Oops, nothing found!"
-            },
-            ".chosen-select-width": {
-                width: "95%"
-            }
-        };
+        // capture user input from form & save as JSON object
+        $('.submit').on('click', function(event) {
 
-        for (var selector in config) {
-            $(selector).chosen(config[selector]);
-        }
+            event.preventDefault();
+
+            var newFriend = {
+
+                name: $('#surveyName').val().trim(),
+                photo: $('#surveyPhoto').val().trim(),
+                scores: [1, 3, 4, 5, 5, 1, 3, 4, 5, 5]
+
+            };
+            console.log(newFriend);
+
+            //send user input to server & server sends response in callback function
+            $.post('/api/friends', newFriend, function(err, data) {
+
+                if (err) throw err;
+
+                alert('Best Match ');
+            });
+        });
     </script>
 </body>
 
