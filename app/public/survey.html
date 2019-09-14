@@ -163,13 +163,13 @@
                     //call function
                     loveMatch(newFriend, friendsArr);
 
-                }).catch(function(err) {
+                    // })
+                    // .catch(function(err) {
 
-                    if (err) throw err;
+                    //     if (err) {
+                    //         console.log(err);
+                    //     };
                 });
-
-
-
         }
 
         function loveMatch(user, friends) {
@@ -178,37 +178,50 @@
             // var last = friends.length - 1;
             // var user = friends[last];
             var userScores = user.scores;
-            console.log("User's Scores  " + userScores)
-            var bestMatch;
+            // console.log("User's Scores  " + userScores)
+            var bestMatch = 1000;
 
             //loop through each friend score & compare it to user's scores to find best match
             for (var i = 0; i < friends.length - 1; i++) {
 
                 var scores = friends[i].scores;
-                console.log('Friend' + i + ' Scores ' + scores);
-
+                // console.log('Friend' + i + ' Scores ' + scores);
 
                 var totalDiff = 0;
 
-                // scores has 10 values. Loop through each scores index 
-                // & find absoulte value of the difference from user's individual index scores
+                // scores has 10 values. Loop through each scores index & find absoulte value of the difference from user's individual index scores
                 // find the cimculative sum of the 2 people's 
                 for (var x = 0; x < 10; x++) {
 
                     var temp = Math.abs(scores[x] - userScores[x]);
                     // console.log(temp);
                     totalDiff += temp;
+
+                    // bestMatch = totalDiff;
                     // console.log('Total diff ' + totalDiff);
-
                 }
-                console.log('Total diff ' + totalDiff);
 
+                console.log('Total diff ' + totalDiff);
+                // bestMatch = totalDiff;
+                // console.log('Best Match ' + bestMatch);
+
+                // if(bestMatch === null){
+
+                // }
+
+                if (totalDiff < bestMatch) {
+                    var temp2 = totalDiff;
+                    bestMatch = temp2;
+                    console.log('Best Match ' + bestMatch);
+
+                    // } else {
+                    //     bestMatch = totalDiff;
+                    // }
+                    console.log('congrats best match ' + bestMatch);
+                }
 
             }
-
         }
-
-        //call functions
     </script>
 </body>
 
