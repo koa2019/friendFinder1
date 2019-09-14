@@ -127,10 +127,11 @@
 
                 name: $('#surveyName').val().trim(),
                 photo: $('#surveyPhoto').val().trim(),
-                scores: qq
+                // scores: qq
+                scores: [5, 4, 3, 2, 1, 1, 2, 3, 4, 5]
 
             };
-            console.log(newFriend);
+            // console.log(newFriend);
 
             //send user input to server & server sends response in callback function
             $.post('/api/friends', newFriend, function(err, data) {
@@ -138,10 +139,57 @@
                 if (err) {
                     data.send('Error');
                 };
-
-                alert('Best Match ');
+                if (data) {
+                    console.log(data);
+                    alert('Best Match ');
+                };
             });
+            //call function
+            getDataFromServer(newFriend);
+
         });
+
+        function getDataFromServer(newFriend) {
+
+            //ajax call to api to compare newFriend to each index in friends array & finds best match.
+            $.ajax({
+                    url: '/api/friends',
+                    method: 'GET'
+                })
+                .then(function(friendsArr) {
+
+                    console.log(friendsArr);
+
+                    //call function
+                    loveMatch(newFriend, friendsArr);
+
+                }).catch(function(err) {
+
+                    if (err) throw err;
+                });
+
+
+
+        }
+
+        function loveMatch(user, friends) {
+
+            //user represents the person you just submitted the survey
+            // var last = friends.length - 1;
+            // var user = friends[last];
+            var userScores = user.scores;
+            console.log('My Scores ' + userScores)
+
+            for (var i = 0; i < friends.length - 1; i++) {
+
+                var scores = friends[i].scores;
+                console.log('friend ' + friends[i].name + ' scores ' + scores);
+
+            }
+
+        }
+
+        //call functions
     </script>
 </body>
 
