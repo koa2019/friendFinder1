@@ -49,7 +49,7 @@
 
                             <div>
                                 <label class="my-1 mr-2" for="q1">Question 1</label>
-                                <h5><strong>Would you consider yourself a morning person?</strong></h5>
+
                                 <select class="custom-select" id="q1">
                                     <option selected>Choose...</option>
                                     <option value="1">1 (Strongly Disagree)</option>
@@ -59,19 +59,12 @@
                                     <option value="5">5 (Strongly Agree)</option>
                                 </select>
                             </div>
-                            <div class="mt-4 mr-2">
-                                <label for="q2">Question 2</label>
-                                <h5><strong>You prefer the beach over the mountains</strong></h5>
-                                <select class="custom-select" id="q2">
-                                    <option selected>Choose...</option>
-                                    <option value="1">1 (Strongly Disagree)</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5 (Strongly Agree)</option>
-                                </select>
-                            </div>
+
                             <br><br>
+
+                            <div class='insertQQs'>
+                                <!-- insert questions here -->
+                            </div>
                             <button type="submit" class="btn btn-primary submit">Submit</button>
                         </form>
                     </div>
@@ -91,6 +84,48 @@
     </div>
 
     <script type="text/javascript">
+        var arr = require("../../app/data/questions.js")
+        console.log(arr)
+
+        function getQuestions() {
+
+            for (var x = 0; x < 10; x++) {
+
+                return arr[x];
+            }
+        }
+
+        function renderQuestions() {
+
+            var newDiv = $('<div>');
+
+            // Then display the fields in the HTML (Section Name, Date, URL)
+            for (var i = 1; i <= 10; i++) {
+
+                var arr = getQuestions();
+
+                var question = $('<h5><strong>' + arr + '</strong></h5>');
+
+                var selectList = $('<select class="custom-select chosen" >').attr('id', 'q' + i);
+
+                selectList.append(
+                    $('<option selected>').text('Choose...'),
+                    $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
+                    $('<option>').attr('value', 2).text('2'),
+                    $('<option>').attr('value', 3).text('3'),
+                    $('<option>').attr('value', 4).text('4'),
+                    $('<option>').attr('value', 5).text('5(Strongly Agree)')
+                );
+
+                $('.insertQQs').append(newDiv).append(question);
+
+                newDiv.append(selectList);
+            };
+        }
+
+        //call function
+        renderQuestions();
+
         // capture user input from form & save as JSON object
         //send JSON obj to express server & server returns friends.js with new obj inside array
         $('.submit').on('click', function(event) {
@@ -100,27 +135,13 @@
 
             //capture each option value from <select> tag & push into a new array
             var qq = [];
+            $('.chosen').map(function(index, elem) {
+                var q = $(this).val();
+                qq.push(q);
 
-            q1 = $('#q1').val();
-            qq.push(q1);
+            })
 
-            q2 = $('#q2').val();
-            qq.push(q2);
-
-            // var q = 2;
-            // console.log(q);
-
-            // for (var i = 1; i <= q.length; i++) {
-
-            //     var qId = '#' + q[i] + '';
-            //     console.log(qId);
-            //     var temp = $(qId).val();
-            //     qq.push()
-            //     debugger;
-            // };
-
-            // console.log(qq);
-
+            console.log(qq);
 
             //create JSON object from req.body
             var newFriend = {
@@ -196,31 +217,18 @@
                     var temp = Math.abs(scores[x] - userScores[x]);
                     // console.log(temp);
                     totalDiff += temp;
-
-                    // bestMatch = totalDiff;
                     // console.log('Total diff ' + totalDiff);
-                }
+                };
 
                 console.log('Total diff ' + totalDiff);
-                // bestMatch = totalDiff;
-                // console.log('Best Match ' + bestMatch);
-
-                // if(bestMatch === null){
-
-                // }
 
                 if (totalDiff < bestMatch) {
                     var temp2 = totalDiff;
                     bestMatch = temp2;
                     console.log('Best Match ' + bestMatch);
-
-                    // } else {
-                    //     bestMatch = totalDiff;
-                    // }
-                    console.log('congrats best match ' + bestMatch);
-                }
-
-            }
+                };
+                console.log('congrats best match ' + bestMatch);
+            };
         }
     </script>
 </body>
