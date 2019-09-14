@@ -178,12 +178,31 @@
             // var last = friends.length - 1;
             // var user = friends[last];
             var userScores = user.scores;
-            console.log('My Scores ' + userScores)
+            console.log("User's Scores  " + userScores)
+            var bestMatch;
 
+            //loop through each friend score & compare it to user's scores to find best match
             for (var i = 0; i < friends.length - 1; i++) {
 
                 var scores = friends[i].scores;
-                console.log('friend ' + friends[i].name + ' scores ' + scores);
+                console.log('Friend' + i + ' Scores ' + scores);
+
+
+                var totalDiff = 0;
+
+                // scores has 10 values. Loop through each scores index 
+                // & find absoulte value of the difference from user's individual index scores
+                // find the cimculative sum of the 2 people's 
+                for (var x = 0; x < 10; x++) {
+
+                    var temp = Math.abs(scores[x] - userScores[x]);
+                    // console.log(temp);
+                    totalDiff += temp;
+                    // console.log('Total diff ' + totalDiff);
+
+                }
+                console.log('Total diff ' + totalDiff);
+
 
             }
 
