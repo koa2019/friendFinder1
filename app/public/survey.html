@@ -47,7 +47,7 @@
                                 <input type="text" class="form-control" id="surveyPhoto" required>
                             </div>
 
-                            <div>
+                            <!-- <div>
                                 <label class="my-1 mr-2" for="q1">Question 1</label>
 
                                 <select class="custom-select" id="q1">
@@ -58,13 +58,15 @@
                                     <option value="4">4</option>
                                     <option value="5">5 (Strongly Agree)</option>
                                 </select>
-                            </div>
+                            </div> -->
 
-                            <br><br>
 
                             <div class='insertQQs'>
                                 <!-- insert questions here -->
                             </div>
+
+                            <br><br>
+
                             <button type="submit" class="btn btn-primary submit">Submit</button>
                         </form>
                     </div>
@@ -84,14 +86,25 @@
     </div>
 
     <script type="text/javascript">
-        var arr = require("../../app/data/questions.js")
-        console.log(arr)
+        // var arr = require("../../app/data/questions.js")
+        // console.log(arr)
 
         function getQuestions() {
-
+            var questions = [
+                'Would you consider yourself a morning person?',
+                'Do you prefer the beach over the mountains?',
+                'Do you ',
+                'Do you ',
+                'Do you ',
+                'Do you ',
+                'Do you ',
+                'Do you ',
+                'Do you ',
+                'Do you '
+            ];
             for (var x = 0; x < 10; x++) {
 
-                return arr[x];
+                return questions[x];
             }
         }
 
@@ -117,9 +130,10 @@
                     $('<option>').attr('value', 5).text('5(Strongly Agree)')
                 );
 
-                $('.insertQQs').append(newDiv).append(question);
 
-                newDiv.append(selectList);
+                newDiv.append(question).append(selectList);
+                $('.insertQQs').append(newDiv);
+
             };
         }
 
@@ -148,8 +162,8 @@
 
                 name: $('#surveyName').val().trim(),
                 photo: $('#surveyPhoto').val().trim(),
-                // scores: qq
-                scores: [5, 4, 3, 2, 1, 1, 2, 3, 4, 5]
+                scores: qq
+                    // scores: [5, 4, 3, 2, 1, 1, 2, 3, 4, 5]
 
             };
             // console.log(newFriend);
