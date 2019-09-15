@@ -47,21 +47,7 @@
                                 <input type="text" class="form-control" id="surveyPhoto" required>
                             </div>
 
-                            <!-- <div>
-                                <label class="my-1 mr-2" for="q1">Question 1</label>
-
-                                <select class="custom-select" id="q1">
-                                    <option selected>Choose...</option>
-                                    <option value="1">1 (Strongly Disagree)</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5 (Strongly Agree)</option>
-                                </select>
-                            </div> -->
-
-
-                            <div class='insertQQs'>
+                            <div class='insertQQs form-group'>
                                 <!-- insert questions here -->
                             </div>
 
@@ -88,36 +74,48 @@
     <script type="text/javascript">
         // var arr = require("../../app/data/questions.js")
         // console.log(arr)
-
         function getQuestions() {
-            var questions = [
+
+            var arr = [
                 'Would you consider yourself a morning person?',
                 'Do you prefer the beach over the mountains?',
-                'Do you ',
-                'Do you ',
-                'Do you ',
-                'Do you ',
-                'Do you ',
-                'Do you ',
-                'Do you ',
-                'Do you '
+                'Do you 3',
+                'Do you 4',
+                'Do you 5',
+                'Do you 6',
+                'Do you 7',
+                'Do you 8',
+                'Do you 9',
+                'Do you 10'
             ];
             for (var x = 0; x < 10; x++) {
 
-                return questions[x];
-            }
+                question = arr[x]
+                console.log(question)
+                $('.insertQQs').append(question);
+
+            };
+            // console.log(question);
+
+            // $('.insertQQs').append(question);
         }
 
-        function renderQuestions() {
 
-            var newDiv = $('<div>');
+
+
+        function renderToPage() {
+
+            getQuestions();
+            getSelectList();
+        }
+
+        function getSelectList() {
 
             // Then display the fields in the HTML (Section Name, Date, URL)
             for (var i = 1; i <= 10; i++) {
 
-                var arr = getQuestions();
-
-                var question = $('<h5><strong>' + arr + '</strong></h5>');
+                var newDiv = $('<div>');
+                var label = $('<label>').attr('for', 'q' + i).text('Question ' + i);
 
                 var selectList = $('<select class="custom-select chosen" >').attr('id', 'q' + i);
 
@@ -127,18 +125,17 @@
                     $('<option>').attr('value', 2).text('2'),
                     $('<option>').attr('value', 3).text('3'),
                     $('<option>').attr('value', 4).text('4'),
-                    $('<option>').attr('value', 5).text('5(Strongly Agree)')
+                    $('<option>').attr('value', 5).text('5(Strongly Agree)'),
                 );
+                // newDiv.append(label).append(question).append(selectList);
+                newDiv.append(label).append(selectList);
 
-
-                newDiv.append(question).append(selectList);
                 $('.insertQQs').append(newDiv);
 
             };
-        }
 
-        //call function
-        renderQuestions();
+        }
+        renderToPage();
 
         // capture user input from form & save as JSON object
         //send JSON obj to express server & server returns friends.js with new obj inside array
@@ -209,10 +206,10 @@
 
         function loveMatch(user, friends) {
 
-            //user represents the person you just submitted the survey
+            //userScores represents the person who just submitted the survey
+            var userScores = user.scores;
             // var last = friends.length - 1;
             // var user = friends[last];
-            var userScores = user.scores;
             // console.log("User's Scores  " + userScores)
             var bestMatch = 1000;
 
