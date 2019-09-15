@@ -105,7 +105,7 @@
 
         function renderToPage() {
 
-            getQuestions();
+            // getQuestions();
             getSelectList();
         }
 
@@ -141,31 +141,28 @@
         //send JSON obj to express server & server returns friends.js with new obj inside array
         $('.submit').on('click', function(event) {
 
-            //stop html from doing its default function
+            // stop html from doing its default function
             event.preventDefault();
 
-            //capture each option value from <select> tag & push into a new array
+            // capture each option value from <select> tag & push into a new array
             var qq = [];
+
             $('.chosen').map(function(index, elem) {
                 var q = $(this).val();
                 qq.push(q);
-
-            })
+            });
 
             console.log(qq);
 
-            //create JSON object from req.body
+            // create JSON object from req.body
             var newFriend = {
 
                 name: $('#surveyName').val().trim(),
                 photo: $('#surveyPhoto').val().trim(),
                 scores: qq
-                    // scores: [5, 4, 3, 2, 1, 1, 2, 3, 4, 5]
-
             };
-            // console.log(newFriend);
 
-            //send user input to server & server sends response in callback function
+            // send user input to server & server sends response in callback function
             $.post('/api/friends', newFriend, function(err, data) {
 
                 if (err) {
@@ -176,6 +173,7 @@
                     alert('Best Match ');
                 };
             });
+
             //call function
             getDataFromServer(newFriend);
 
