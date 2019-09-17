@@ -91,81 +91,36 @@
         </div>
     </div>
 
-    <!-- <script src="../javascript/javascript.js"></script> -->
+    <!-- <script src="../javascript/javascript.js" type="text/javascript"></script> -->
 
     <script type="text/javascript">
-        // var arr = require("../../app/data/questions.js")
-        // console.log(arr)
+        // var questions = require("../../app/data/questions.js")
+        // console.log(questions)
 
-        var arr = [
+        var questions = [
             'Would you consider yourself a morning person?',
             'Do you prefer the beach over the mountains?',
-            'Do you 3',
-            'Do you 4',
-            'Do you 5',
-            'Do you 6',
-            'Do you 7',
-            'Do you 8',
-            'Do you 9',
-            'Do you 10'
+            'Dogs are better than cats',
+            'Dinner & a movie is better than going to a night club',
+            'Sunsets are better than sunrises',
+            'Money can buy you happiness',
+            'Intimacy is the same as sex',
+            'Parents should be able to spank their kids',
+            'Family is important to me',
+            'UFOs are real'
         ];
 
-        function getQuestions() {
-
-            for (var x = 0; x < arr.length; x++) {
-
-                question = arr[x];
-                console.log(question);
-                return question;
-            };
-        }
-
-        function renderToPage() {
-
-            // getQuestions();
-            getSelectList();
-            // getQuestions();
-
-        }
-
-        function getSelectList() {
-
-            // Then display the fields in the HTML (Section Name, Date, URL)
-            for (var i = 1; i <= 10; i++) {
-
-                var newDiv = $('<div>');
-
-                var label = $('<label>').addClass('here mt-2').attr('for', 'q' + i).text('Question ' + i);
-                var selectList = $('<select class="custom-select chosen form-control" >').attr('id', 'q' + i);
-
-                selectList.append(
-                    $('<option selected>').attr('value', '').text('Choose...'),
-                    $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
-                    $('<option>').attr('value', 2).text('2'),
-                    $('<option>').attr('value', 3).text('3'),
-                    $('<option>').attr('value', 4).text('4'),
-                    $('<option>').attr('value', 5).text('5(Strongly Agree)'),
-                );
-                var question = arr[i - 1];
-                console.log(question);
-                question = $('<h5>').text(question);
-                label.append(question);
-
-                newDiv.append(label).append(selectList);
-                $('.insertQQs').append(newDiv);
-                // $('.here').append(question)
-            };
-        }
+        //render questions & selection options to page
         renderToPage();
 
         // capture user input from form & save as JSON object
-        // send JSON obj to express server & server returns friends.js with new obj inside array
+        // send JSON obj to express server & server returns friends.js with new obj inside questionsay
         $('.submit').on('click', function(event) {
 
             // stop html from doing its default function
             event.preventDefault();
 
-            // capture each option value from <select> tag & push into a new array
+            // capture each option value from <select> tag & push into a new questionsay
             var qq = [];
 
             $('.chosen').map(function(index, elem) {
@@ -208,17 +163,17 @@
 
         function getDataFromServer(newFriend) {
 
-            //ajax call to api to compare newFriend to each index in friends array & finds best match.
+            //ajax call to api to compare newFriend to each index in friends questionsay & finds best match.
             $.ajax({
                     url: '/api/friends',
                     method: 'GET'
                 })
-                .then(function(friendsArr) {
+                .then(function(friendsquestions) {
 
-                    console.log(friendsArr);
+                    console.log(friendsquestions);
 
                     //call function
-                    loveMatch(newFriend, friendsArr);
+                    loveMatch(newFriend, friendsquestions);
 
                     // })
                     // .catch(function(err) {
@@ -264,6 +219,54 @@
                     console.log('Best Match ' + bestMatch);
                 };
                 console.log('congrats best match ' + bestMatch);
+            };
+        }
+
+        function renderToPage() {
+
+            getSelectList();
+            // getQuestions();
+        }
+
+        //functions for rendering html elements to survey.html
+        function getQuestions() {
+
+            for (var x = 0; x < questions.length; x++) {
+
+                question = questions[x];
+                console.log(question);
+                question = $('<h5>').text(question);
+                $('.here').append(question);
+                // return question;
+            };
+        }
+
+        function getSelectList() {
+
+            // Then display the fields in the HTML (Section Name, Date, URL)
+            for (var i = 1; i <= 10; i++) {
+
+                var newDiv = $('<div>');
+
+                var label = $('<label>').addClass('here').attr('for', 'q' + i).text('Question ' + i);
+                var selectList = $('<select class="custom-select chosen form-control" >').attr('id', 'q' + i);
+
+                selectList.append(
+                    $('<option selected>').attr('value', '').text('Choose...'),
+                    $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
+                    $('<option>').attr('value', 2).text('2'),
+                    $('<option>').attr('value', 3).text('3'),
+                    $('<option>').attr('value', 4).text('4'),
+                    $('<option>').attr('value', 5).text('5(Strongly Agree)'),
+                );
+                var question = questions[i - 1];
+                console.log(question);
+                question = $('<h5>').text(question);
+                label.append(question);
+                // getQuestions();
+
+                newDiv.append(label).append(selectList);
+                $('.insertQQs').append(newDiv);
             };
         }
     </script>

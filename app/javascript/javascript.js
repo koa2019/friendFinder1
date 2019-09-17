@@ -3,79 +3,22 @@ $(document).ready(function() {
     // var arr = require("../../app/data/questions.js")
     // console.log(arr)
 
-    var arr = [
+    // var questions = require("../../app/data/questions.js")
+    // console.log(questions)
+
+    var questions = [
         'Would you consider yourself a morning person?',
         'Do you prefer the beach over the mountains?',
-        'Do you 3',
-        'Do you 4',
-        'Do you 5',
-        'Do you 6',
-        'Do you 7',
-        'Do you 8',
-        'Do you 9',
-        'Do you 10'
+        'Dogs are better than cats',
+        'Dinner & a movie is better than going to a night club',
+        'Sunsets are better than sunrises',
+        'Money can buy you happiness',
+        'Intimacy is the same as sex',
+        'Parents should be able to spank their kids',
+        'Family is important to me',
+        'UFOs are real'
     ];
 
-    function getQuestions() {
-
-        for (var x = 0; x < arr.length; x++) {
-
-            question = arr[x];
-            console.log(question);
-            //     $('.insertQQs').append(question);
-            return question;
-        };
-        // console.log(question);
-
-        // $('.insertQQs').append(question);
-    }
-
-
-
-
-    function renderToPage() {
-
-        // for (var x = 0; x < arr.length; x++) {
-
-        //     var question = arr[x];
-        //     console.log(question)
-        //     $('.insertQQs').append(question);
-        // };
-
-        // getQuestions();
-        getSelectList();
-    }
-
-    function getSelectList() {
-
-        // Then display the fields in the HTML (Section Name, Date, URL)
-        for (var i = 1; i <= 10; i++) {
-
-            var newDiv = $('<div>');
-            var label = $('<label>').attr('for', 'q' + i).text('Question ' + i);
-
-            var question = arr[i];
-            console.log(question)
-            $('.insertQQs').append(question);
-
-            var selectList = $('<select class="custom-select chosen" >').attr('id', 'q' + i);
-
-            selectList.append(
-                $('<option selected>').attr('value', '').text('Choose...'),
-                $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
-                $('<option>').attr('value', 2).text('2'),
-                $('<option>').attr('value', 3).text('3'),
-                $('<option>').attr('value', 4).text('4'),
-                $('<option>').attr('value', 5).text('5(Strongly Agree)'),
-            );
-            // newDiv.append(label).append(question).append(selectList);
-            newDiv.append(label).append(selectList);
-
-            $('.insertQQs').append(newDiv);
-
-        };
-
-    }
     renderToPage();
 
     $('.submit').on('click', function(event) {
@@ -146,6 +89,54 @@ $(document).ready(function() {
                 //     };
             });
     }
+
+    function getQuestions() {
+
+        for (var x = 0; x < questions.length; x++) {
+
+            question = questions[x];
+            console.log(question);
+            question = $('<h5>').text(question);
+            $('.here').append(question);
+            // return question;
+        };
+    }
+
+    function renderToPage() {
+
+        getSelectList();
+        // getQuestions();
+    }
+
+    function getSelectList() {
+
+        // Then display the fields in the HTML (Section Name, Date, URL)
+        for (var i = 1; i <= 10; i++) {
+
+            var newDiv = $('<div>');
+
+            var label = $('<label>').addClass('here').attr('for', 'q' + i).text('Question ' + i);
+            var selectList = $('<select class="custom-select chosen form-control" >').attr('id', 'q' + i);
+
+            selectList.append(
+                $('<option selected>').attr('value', '').text('Choose...'),
+                $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
+                $('<option>').attr('value', 2).text('2'),
+                $('<option>').attr('value', 3).text('3'),
+                $('<option>').attr('value', 4).text('4'),
+                $('<option>').attr('value', 5).text('5(Strongly Agree)'),
+            );
+            var question = questions[i - 1];
+            console.log(question);
+            question = $('<h5>').text(question);
+            label.append(question);
+            // getQuestions();
+
+            newDiv.append(label).append(selectList);
+            $('.insertQQs').append(newDiv);
+        };
+    }
+
 
     function loveMatch(user, friends) {
 
