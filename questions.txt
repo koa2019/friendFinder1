@@ -1,8 +1,10 @@
-server.js how would you read the (app)?
+server.js how would you read/interpret the (app) in code below?
 // imports html routing calls
 var htmlRoutes = require('./app/routing/htmlRoutes')(app);
 
 why do you have to impor api before html?
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+
+why isn't my catch() working line 176 survey.html
  

@@ -82,7 +82,7 @@
                 </div>
                 <div class="modal-body">
                     <h2 id="match-name"></h2>
-                    <img id="match-img" src="#" alt="">
+                    <img id="match-img" src="https://pointe3.com/wp-content/uploads/2015/08/default-no-profile-pic.jpg" alt="blank profile picture">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -128,7 +128,7 @@
                 qq.push(q);
             });
 
-            console.log(qq);
+            // console.log('user scores array pushing to server: ' + qq);
 
             // create JSON object from req.body
             var newFriend = {
@@ -136,50 +136,49 @@
                 name: $('#surveyName').val().trim(),
                 photo: $('#surveyPhoto').val().trim(),
                 scores: qq
+                    // scores: [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]
+
             };
 
-            // send user input to server & server sends response in callback function
+            // send user input, newFriend object, to server & server sends response in callback function
             $.post('/api/friends', newFriend, function(err, data) {
 
                 if (err) {
                     data.send('Error');
                 };
-                // if (data) {
-                //     console.log(data);
-                //     alert('Best Match ');
-                // };
-                // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-                $("#match-name").text(data.name);
-                $("#match-img").attr("src", data.photo);
-
-                // Show the modal with the best match
-                $("#results-modal").modal("toggle");
+                if (data) {
+                    console.log(data);
+                };
             });
-
-            //call function
-            getDataFromServer(newFriend);
-
+            //call function to get data from server
+            getDataFromServer();
         });
 
-        function getDataFromServer(newFriend) {
+        function getDataFromServer() {
+            // function getDataFromServer(newFriend) {
 
-            //ajax call to api to compare newFriend to each index in friends questionsay & finds best match.
+            //ajax call to api to compare newFriend to each index in friends scores array & finds best match.
             $.ajax({
                     url: '/api/friends',
                     method: 'GET'
                 })
-                .then(function(friendsquestions) {
+                .then(function(friendsArr) {
 
-                    console.log(friendsquestions);
+                    // console.log(friendsArr);
+
+                    var last = friendsArr.length - 1;
+                    var user = friendsArr[last];
+                    // console.log("User's Scores  " + user.scores)
 
                     //call function
-                    loveMatch(newFriend, friendsquestions);
+                    loveMatch(user, friendsArr);
 
                     // })
                     // .catch(function(err) {
 
                     //     if (err) {
-                    //         console.log(err);
+                    //         // console.log(err);
+                    //         friendsArr.send('Error');
                     //     };
                 });
         }
@@ -188,14 +187,13 @@
 
             //userScores represents the person who just submitted the survey
             var userScores = user.scores;
-            // var last = friends.length - 1;
-            // var user = friends[last];
-            // console.log("User's Scores  " + userScores)
+
             var bestMatch = 1000;
 
             //loop through each friend score & compare it to user's scores to find best match
             for (var i = 0; i < friends.length - 1; i++) {
 
+                var name = friends[i].name;
                 var scores = friends[i].scores;
                 // console.log('Friend' + i + ' Scores ' + scores);
 
@@ -211,17 +209,27 @@
                     // console.log('Total diff ' + totalDiff);
                 };
 
-                console.log('Total diff ' + totalDiff);
+                console.log('You & ' + name + ' Total diff = ' + totalDiff + '\n');
 
                 if (totalDiff < bestMatch) {
                     var temp2 = totalDiff;
                     bestMatch = temp2;
-                    console.log('Best Match ' + bestMatch);
+                    var match = friends[i];
+                    // console.log('Best Match ' + bestMatch);
+                    // console.log(match.name);
                 };
-                console.log('congrats best match ' + bestMatch);
+                console.log('Congrats best match ' + bestMatch + '\nYou match with ' + match.name)
+
+                // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                $("#match-name").text(match.name);
+                $("#match-img").attr("src", match.photo);
+
+                // Show the modal with the best match
+                $("#results-modal").modal("toggle");
             };
         }
 
+        //functions to display questions & dropdown menu select options
         function renderToPage() {
 
             getSelectList();
@@ -260,7 +268,7 @@
                     $('<option>').attr('value', 5).text('5(Strongly Agree)'),
                 );
                 var question = questions[i - 1];
-                console.log(question);
+                // console.log(question);
                 question = $('<h5>').text(question);
                 label.append(question);
                 // getQuestions();

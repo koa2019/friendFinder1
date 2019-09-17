@@ -1,7 +1,7 @@
 // data array of objects
 var friendsData = [{
         "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://media.forgecdn.net/avatars/93/390/636262464723178781.jpeg",
         "scores": [
             "5",
             "2",
@@ -17,7 +17,7 @@ var friendsData = [{
     },
     {
         "name": "Tiffany",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://pbs.twimg.com/media/DiU4Lu4U0AA_yXD.jpg",
         "scores": [
             "4",
             "3",
@@ -33,7 +33,7 @@ var friendsData = [{
     },
     {
         "name": "Jacob Deming",
-        "photo": "https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg",
+        "photo": "https://images.dailykos.com/images/660027/large/WwQN0QHi_400x400.jpg?1554075115",
         "scores": [
             "4",
             "2",
@@ -45,38 +45,6 @@ var friendsData = [{
             "1",
             "3",
             "2"
-        ]
-    },
-    {
-        "name": "Jeremiah Scanlon",
-        "photo": "https://avatars2.githubusercontent.com/u/8504998?v=3&s=460",
-        "scores": [
-            "5",
-            "2",
-            "2",
-            "2",
-            "4",
-            "1",
-            "3",
-            "2",
-            "5",
-            "5"
-        ]
-    },
-    {
-        "name": "Daniel",
-        "photo": "https://www.gannett-cdn.com/media/2019/08/05/USATODAY/usatsports/most-popular-dog-breeds-intro-image.jpg?width=2560",
-        "scores": [
-            "2",
-            "3",
-            "3",
-            "4",
-            "3",
-            "2",
-            "3",
-            "3",
-            "3",
-            "4"
         ]
     }
 ];
