@@ -60,7 +60,6 @@
             </div>
         </div>
 
-
         <footer class="footer">
             <div class="container">
                 <p>
@@ -92,6 +91,8 @@
         </div>
     </div>
 
+    <!-- <script src="../javascript/javascript.js"></script> -->
+
     <script type="text/javascript">
         // var arr = require("../../app/data/questions.js")
         // console.log(arr)
@@ -115,28 +116,16 @@
 
                 question = arr[x];
                 console.log(question);
-                //     $('.insertQQs').append(question);
                 return question;
             };
-            // console.log(question);
-
-            // $('.insertQQs').append(question);
         }
-
-
-
 
         function renderToPage() {
 
-            // for (var x = 0; x < arr.length; x++) {
-
-            //     var question = arr[x];
-            //     console.log(question)
-            //     $('.insertQQs').append(question);
-            // };
-
             // getQuestions();
             getSelectList();
+            // getQuestions();
+
         }
 
         function getSelectList() {
@@ -145,13 +134,9 @@
             for (var i = 1; i <= 10; i++) {
 
                 var newDiv = $('<div>');
-                var label = $('<label>').attr('for', 'q' + i).text('Question ' + i);
 
-                var question = arr[i];
-                console.log(question)
-                $('.insertQQs').append(question);
-
-                var selectList = $('<select class="custom-select chosen" >').attr('id', 'q' + i);
+                var label = $('<label>').addClass('here mt-2').attr('for', 'q' + i).text('Question ' + i);
+                var selectList = $('<select class="custom-select chosen form-control" >').attr('id', 'q' + i);
 
                 selectList.append(
                     $('<option selected>').attr('value', '').text('Choose...'),
@@ -161,18 +146,20 @@
                     $('<option>').attr('value', 4).text('4'),
                     $('<option>').attr('value', 5).text('5(Strongly Agree)'),
                 );
-                // newDiv.append(label).append(question).append(selectList);
+                var question = arr[i - 1];
+                console.log(question);
+                question = $('<h5>').text(question);
+                label.append(question);
+
                 newDiv.append(label).append(selectList);
-
                 $('.insertQQs').append(newDiv);
-
+                // $('.here').append(question)
             };
-
         }
         renderToPage();
 
         // capture user input from form & save as JSON object
-        //send JSON obj to express server & server returns friends.js with new obj inside array
+        // send JSON obj to express server & server returns friends.js with new obj inside array
         $('.submit').on('click', function(event) {
 
             // stop html from doing its default function
@@ -218,8 +205,6 @@
             getDataFromServer(newFriend);
 
         });
-
-
 
         function getDataFromServer(newFriend) {
 
