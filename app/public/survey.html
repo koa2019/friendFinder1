@@ -71,29 +71,52 @@
 
     </div>
 
+    <!-- Modal -->
+    <div id="results-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title"><strong>Best Match</strong></h2>
+                </div>
+                <div class="modal-body">
+                    <h2 id="match-name"></h2>
+                    <img id="match-img" src="#" alt="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         // var arr = require("../../app/data/questions.js")
         // console.log(arr)
+
+        var arr = [
+            'Would you consider yourself a morning person?',
+            'Do you prefer the beach over the mountains?',
+            'Do you 3',
+            'Do you 4',
+            'Do you 5',
+            'Do you 6',
+            'Do you 7',
+            'Do you 8',
+            'Do you 9',
+            'Do you 10'
+        ];
+
         function getQuestions() {
 
-            var arr = [
-                'Would you consider yourself a morning person?',
-                'Do you prefer the beach over the mountains?',
-                'Do you 3',
-                'Do you 4',
-                'Do you 5',
-                'Do you 6',
-                'Do you 7',
-                'Do you 8',
-                'Do you 9',
-                'Do you 10'
-            ];
-            for (var x = 0; x < 10; x++) {
+            for (var x = 0; x < arr.length; x++) {
 
-                question = arr[x]
-                console.log(question)
-                $('.insertQQs').append(question);
-
+                question = arr[x];
+                console.log(question);
+                //     $('.insertQQs').append(question);
+                return question;
             };
             // console.log(question);
 
@@ -104,6 +127,13 @@
 
 
         function renderToPage() {
+
+            // for (var x = 0; x < arr.length; x++) {
+
+            //     var question = arr[x];
+            //     console.log(question)
+            //     $('.insertQQs').append(question);
+            // };
 
             // getQuestions();
             getSelectList();
@@ -117,10 +147,14 @@
                 var newDiv = $('<div>');
                 var label = $('<label>').attr('for', 'q' + i).text('Question ' + i);
 
+                var question = arr[i];
+                console.log(question)
+                $('.insertQQs').append(question);
+
                 var selectList = $('<select class="custom-select chosen" >').attr('id', 'q' + i);
 
                 selectList.append(
-                    $('<option selected>').text('Choose...'),
+                    $('<option selected>').attr('value', '').text('Choose...'),
                     $('<option>').attr('value', 1).text('1 (Strongly Disagree)'),
                     $('<option>').attr('value', 2).text('2'),
                     $('<option>').attr('value', 3).text('3'),
@@ -168,16 +202,24 @@
                 if (err) {
                     data.send('Error');
                 };
-                if (data) {
-                    console.log(data);
-                    alert('Best Match ');
-                };
+                // if (data) {
+                //     console.log(data);
+                //     alert('Best Match ');
+                // };
+                // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                $("#match-name").text(data.name);
+                $("#match-img").attr("src", data.photo);
+
+                // Show the modal with the best match
+                $("#results-modal").modal("toggle");
             });
 
             //call function
             getDataFromServer(newFriend);
 
         });
+
+
 
         function getDataFromServer(newFriend) {
 
